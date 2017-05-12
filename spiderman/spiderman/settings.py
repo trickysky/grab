@@ -9,7 +9,7 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 
-LOG_LEVEL = 'INFO'
+# LOG_LEVEL = 'INFO'
 BOT_NAME = 'spiderman'
 
 SPIDER_MODULES = ['spiderman.spiders']
@@ -46,15 +46,16 @@ ROBOTSTXT_OBEY = False
 
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
-# SPIDER_MIDDLEWARES = {
-#    'spiderman.middlewares.SpidermanSpiderMiddleware': 543,
-# }
+SPIDER_MIDDLEWARES = {
+   'scrapy.spidermiddlewares.httperror.HttpErrorMiddleware': None,
+}
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-# DOWNLOADER_MIDDLEWARES = {
-#    'spiderman.middlewares.MyCustomDownloaderMiddleware': 543,
-# }
+DOWNLOADER_MIDDLEWARES = {
+   'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+   'spiderman.middlewares.CommonRequestMiddleware': 800,
+}
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html

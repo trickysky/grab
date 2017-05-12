@@ -4,8 +4,39 @@
 #
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
+import os
+import random
 
 from scrapy import signals
+# from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
+
+
+class CommonRequestMiddleware(object):
+    def __init__(self):
+        pass
+
+    def process_request(self, request, spider):
+        # print 'this is common request'
+        user_agent_list = open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'user_agent.cfg')).read().split('\n')
+        ua = random.choice(user_agent_list)
+        if ua:
+            request.headers['User-Agent'] = ua
+        request.headers['Accept'] = '*/*'
+        request.headers['Accept-Encoding'] = 'gzip, deflate, sdch'
+        request.headers['Accept-Language'] = 'zh-CN,zh;q=0.8,en;q=0.6'
+        request.headers['Connection'] = 'keep-alive'
+
+        return
+
+
+class ProxyMiddleware(object):
+    def __init__(self):
+        pass
+
+    def process_request(self, request, spider):
+        print 'this is proxy middleware'
+        # request.meta['proxy'] = 'http://pi.tiankun.me:1081'
+        return
 
 
 class SpidermanSpiderMiddleware(object):
