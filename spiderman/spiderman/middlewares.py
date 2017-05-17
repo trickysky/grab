@@ -25,7 +25,6 @@ class CommonRequestMiddleware(object):
         request.headers['Accept-Encoding'] = 'gzip, deflate, sdch'
         request.headers['Accept-Language'] = 'zh-CN,zh;q=0.8,en;q=0.6'
         request.headers['Connection'] = 'keep-alive'
-
         return
 
 
@@ -34,8 +33,9 @@ class ProxyMiddleware(object):
         pass
 
     def process_request(self, request, spider):
-        print 'this is proxy middleware'
-        # request.meta['proxy'] = 'http://pi.tiankun.me:1081'
+        # print 'this is proxy middleware'
+        proxy_url = 'http://pi.tiankun.me:1081'
+        request.meta['proxy'] = proxy_url
         return
 
 

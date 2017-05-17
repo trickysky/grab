@@ -55,6 +55,7 @@ SPIDER_MIDDLEWARES = {
 DOWNLOADER_MIDDLEWARES = {
    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
    'spiderman.middlewares.CommonRequestMiddleware': 800,
+   # 'spiderman.middlewares.ProxyMiddleware': 801,
 }
 
 # Enable or disable extensions

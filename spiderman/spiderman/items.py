@@ -20,3 +20,9 @@ class MobikeItem(scrapy.Item):
     latitude = scrapy.Field()
     bike_type = scrapy.Field()
     datetime = scrapy.Field()
+
+
+class ProxyItem(scrapy.Item):
+    host = scrapy.Field()
+    port = scrapy.Field()
+    type = scrapy.Field()

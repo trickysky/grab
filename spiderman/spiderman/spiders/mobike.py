@@ -11,13 +11,20 @@ import scrapy
 from scrapy import log
 
 from spiderman import items
+from spiderman.model.base import PG_DB as db
+from spiderman.model import mobike
 
 
 class Mobike(scrapy.Spider):
     name = 'mobike'
+    db = db
+    models = {
+        'bike': mobike.spider_mobike_bike,
+        'status': mobike.spider_mobike_status
+    }
     custom_settings = {
         'ITEM_PIPELINES': {
-            'spiderman.pipelines.MobikePipeline': 300,
+            'spiderman.pipelines.MobikePipeline': 999,
         }
     }
 
