@@ -4,11 +4,9 @@
 # 2017/5/9
 
 import datetime
-import time
 import json
 
 import scrapy
-from scrapy import log
 
 from spiderman import items
 from spiderman.model.base import PG_DB as db
@@ -48,6 +46,7 @@ class Mobike(scrapy.Spider):
                 item['latitude'] = i.get('distY')
                 item['bike_type'] = i.get('biketype')
                 item['datetime'] = now
-                yield item
+                print item['bike_id']
+                # yield item
         else:
-            log.msg('No Response', level=log.CRITICAL)
+            self.logger.warning('No Response', response.url)

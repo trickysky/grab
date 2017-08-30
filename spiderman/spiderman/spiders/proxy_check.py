@@ -3,7 +3,7 @@
 # trickysky
 # 2017/5/17
 
-from scrapy.spider import CrawlSpider
+from scrapy.spiders import CrawlSpider
 from spiderman.model.base import PG_DB as db
 from spiderman.model import proxy
 

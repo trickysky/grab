@@ -5,4 +5,4 @@
 
 from peewee import *
 
-PG_DB = PostgresqlDatabase('mydb', user='postgres', password='tk0306', host='localhost')
+PG_DB = PostgresqlDatabase('mydb', user='tk', password='tk0306', host='localhost')

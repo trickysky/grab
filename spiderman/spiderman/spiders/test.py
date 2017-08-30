@@ -4,7 +4,7 @@
 # 2017/5/9
 
 import scrapy
-from scrapy.contrib.spiders import CrawlSpider
+from scrapy.spiders import CrawlSpider
 
 URL = 'http://ip.cip.cc'
 # URL = 'http://www.xicidaili.com/nn'
