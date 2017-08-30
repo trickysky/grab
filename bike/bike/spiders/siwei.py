@@ -4,15 +4,21 @@
 # 2017/8/30
 
 import scrapy
-import json
-from spiderman.model.base import PG_DB as db
-
+import json, datetime, pytz
+from bike import items
+from bike.models import *
 
 class Siwei(scrapy.Spider):
     name = 'siwei'
     db = db
-    models = {}
-    custom_settings = {}
+    models = {
+        # 'speed': siwei_model.spider_siwei_speed
+    }
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            'bike.pipelines.siwei.SiweiPipline': 999,
+        }
+    }
 
     def start_requests(self):
         city_list = {
@@ -57,18 +63,24 @@ class Siwei(scrapy.Spider):
         city = response.meta['city']
         if response.body:
             result = json.loads(response.body)
-            print
-            # for i in range(len(result)):
-                # item = items.siweiItem()
-                # item['city'] = city
-                # item['time'] = pytz.timezone('Asia/Shanghai').localize(
-                #     datetime.datetime.strptime(result[i].get('time'), '%Y%m%d%H%M'))
-                # item['name'] = result[i].get('name')
-                # item['start'] = result[i].get('startName')
-                # item['end'] = result[i].get('endName')
-                # item['avg_speed'] = float(result[i].get('avgSpeed')) if result[i].get('avgSpeed') else None
-                # item['b_index'] = float(result[i].get('bIndex')) if result[i].get('bIndex') else None
-                # item['s_index'] = float(result[i].get('sIndex')) if result[i].get('sIndex') else None
-                # item['c_index'] = float(result[i].get('cIndex')) if result[i].get('cIndex') else None
-                # item['direction'] = result[i].get('dir')
+            for i in result:
+                item = items.SiweiItem()
+                item['city'] = city
+                item['code'] = i.get('code')
+                item['time'] = pytz.timezone('Asia/Shanghai').localize(
+                    datetime.datetime.strptime(i.get('time'), '%Y%m%d%H%M'))
+                item['speed'] = float(i.get('avgSpeed'))
+                item['road_name'] = i.get('name')
+                item['start_name'] = i.get('startName')
+                item['end_name'] = i.get('endName')
+                item['dir'] = i.get('dir')
+                item['b_index'] = i.get('bIndex')
+                item['c_index'] = i.get('cIndex')
+                item['s_index'] = i.get('sIndex')
+                item['kind'] = i.get('dir')
+                item['rtic_lon_lats'] = i.get('dir')
+                item['vkt'] = i.get('dir')
+
                 # yield item
+        else:
+            self.logger.warning('No Response', response.url)

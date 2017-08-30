@@ -8,6 +8,7 @@ from peewee import *
 from base import PG_DB as db
 
 class spider_siwei_speed(Model):
+    city = CharField()
     code = CharField()
     time = DateTimeField()
     speed = FloatField()

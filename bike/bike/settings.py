@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for spiderman project
+# Scrapy settings for bike project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -10,13 +10,13 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 
 # LOG_LEVEL = 'INFO'
-BOT_NAME = 'spiderman'
+BOT_NAME = 'bike'
 
-SPIDER_MODULES = ['spiderman.spiders']
-NEWSPIDER_MODULE = 'spiderman.spiders'
+SPIDER_MODULES = ['bike.spiders']
+NEWSPIDER_MODULE = 'bike.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-# USER_AGENT = 'spiderman (+http://www.yourdomain.com)'
+# USER_AGENT = 'bike (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -54,8 +54,8 @@ SPIDER_MIDDLEWARES = {
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-   'spiderman.middlewares.CommonRequestMiddleware': 800,
-   # 'spiderman.middlewares.ProxyMiddleware': 801,
+   'bike.middlewares.CommonRequestMiddleware': 800,
+   # 'bike.middlewares.ProxyMiddleware': 801,
 }
 
 # Enable or disable extensions
@@ -67,7 +67,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 # ITEM_PIPELINES = {
-#     'spiderman.pipelines.SpidermanPipeline': 300,
+#     'bike.pipelines.SpidermanPipeline': 300,
 # }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

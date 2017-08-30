@@ -5,20 +5,18 @@
 
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
-from spiderman.items import ProxyItem
-from spiderman.model.base import PG_DB as db
-from spiderman.model import proxy
-
+from bike.items import ProxyItem
+from bike.models import *
 
 class ProxyFetch(CrawlSpider):
     name = 'proxy_fetch'
     db = db
     models = {
-        'proxy': proxy.spider_proxy,
+        # 'proxy': proxy.spider_proxy,
     }
     custom_settings = {
         'ITEM_PIPELINES': {
-            'spiderman.pipelines.ProxyPipeline': 999,
+            'bike.pipelines.ProxyPipeline': 999,
         },
         'DOWNLOAD_DELAY': 1,
     }

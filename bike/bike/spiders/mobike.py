@@ -8,21 +8,20 @@ import json
 
 import scrapy
 
-from spiderman import items
-from spiderman.model.base import PG_DB as db
-from spiderman.model import mobike
+from bike import items
+from bike.models import *
 
 
 class Mobike(scrapy.Spider):
     name = 'mobike'
     db = db
     models = {
-        'bike': mobike.spider_mobike_bike,
-        'status': mobike.spider_mobike_status
+        'bike': spider_mobike_bike,
+        'status': spider_mobike_status
     }
     custom_settings = {
         'ITEM_PIPELINES': {
-            'spiderman.pipelines.MobikePipeline': 999,
+            'bike.pipelines.MobikePipeline': 999,
         }
     }
 
@@ -46,7 +45,7 @@ class Mobike(scrapy.Spider):
                 item['latitude'] = i.get('distY')
                 item['bike_type'] = i.get('biketype')
                 item['datetime'] = now
-                print item['bike_id']
-                # yield item
+                # print item['bike_id']
+                yield item
         else:
             self.logger.warning('No Response', response.url)

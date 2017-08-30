@@ -5,18 +5,16 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
-from model import mobike
-from model import proxy
+from base import BasePipeline
 
-
-class BasePipeline(object):
-    def open_spider(self, spider):
-        spider.db.connect()
-        for model in spider.models.values():
-            spider.db.create_table(model, safe=True)
-
-    def close_spider(self, spider):
-        spider.db.close()
+# class BasePipeline(object):
+#     def open_spider(self, spider):
+#         spider.db.connect()
+#         for model_tmp in spider.models.values():
+#             spider.db.create_table(model_tmp, safe=True)
+#
+#     def close_spider(self, spider):
+#         spider.db.close()
 
 
 class ProxyPipeline(BasePipeline):
