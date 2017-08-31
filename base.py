@@ -9,6 +9,8 @@ from peewee import *
 
 PG_DB = PostgresqlDatabase('mydb', user='tk', password='tk0306', host='localhost')
 
+DEFAULT_DB = PG_DB
+
 class BasePipeline(object):
     def open_spider(self, spider):
         spider.db.connect()

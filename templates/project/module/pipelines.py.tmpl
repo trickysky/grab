@@ -5,7 +5,8 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
+from base import BasePipeline
 
-class TemplatesPipeline(object):
+class ${ProjectName}Pipeline(BasePipeline):
     def process_item(self, item, spider):
         return item

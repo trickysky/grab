@@ -7,16 +7,6 @@
 
 from base import BasePipeline
 
-# class BasePipeline(object):
-#     def open_spider(self, spider):
-#         spider.db.connect()
-#         for model_tmp in spider.models.values():
-#             spider.db.create_table(model_tmp, safe=True)
-#
-#     def close_spider(self, spider):
-#         spider.db.close()
-
-
 class ProxyPipeline(BasePipeline):
     def process_item(self, item, spider):
         check_query = spider.models['proxy'].select().where(

@@ -1,0 +1,24 @@
+# -*- coding: utf-8 -*-
+import scrapy
+from ${project_name} import items
+from ${project_name}.models import *
+
+class $classname(scrapy.Spider):
+    name = '$name'
+    db = db
+    # allowed_domains = ['$domain']
+    # start_urls = ['http://$domain/']
+    models = {
+
+    }
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            '$project_name.pipelines.${ProjectName}Pipeline': 999,
+        }
+    }
+
+    def start_requests(self):
+        pass
+
+    def parse(self, response):
+        pass

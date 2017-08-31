@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for templates project
+# Scrapy settings for traffic project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,9 +9,11 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = '$project_name'
+from base_settings import *
 
-SPIDER_MODULES = ['$project_name.spiders']
-NEWSPIDER_MODULE = '$project_name.spiders'
+BOT_NAME = 'traffic'
+
+SPIDER_MODULES = ['traffic.spiders']
+NEWSPIDER_MODULE = 'traffic.spiders'
 
 
