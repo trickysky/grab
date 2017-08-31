@@ -8,7 +8,7 @@
 import scrapy
 
 
-class SiweiItem(scrapy.Item):
+class SiweiSpeedItem(scrapy.Item):
     city = scrapy.Field()
     code = scrapy.Field()
     time = scrapy.Field()

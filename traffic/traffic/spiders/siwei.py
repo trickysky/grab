@@ -11,7 +11,8 @@ class SiweiSpider(scrapy.Spider):
     # allowed_domains = ['siwei.co']
     # start_urls = ['http://siwei.co/']
     models = {
-        'speed': spider_traffic_siwei_speed
+        'speed': spider_traffic_siwei_speed,
+        'road_name': spider_traffic_siwei_road_name
     }
     custom_settings = {
         'ITEM_PIPELINES': {
@@ -22,7 +23,7 @@ class SiweiSpider(scrapy.Spider):
 
     def start_requests(self):
         city_list = {
-            u'北京': '110000',
+            # u'北京': '110000',
             # u'天津': '120000',
             # u'石家庄': '130100',
             # u'太原': '140100',
@@ -64,22 +65,22 @@ class SiweiSpider(scrapy.Spider):
         if response.body:
             result = json.loads(response.body)
             for i in result:
-                item = items.SiweiItem()
-                item['city'] = city
-                item['code'] = i.get('code')
-                item['time'] = pytz.timezone('Asia/Shanghai').localize(
+                speed_item = items.SiweiSpeedItem()
+                speed_item['code'] = i.get('code')
+                speed_item['city'] = city
+                speed_item['road_name'] = i.get('name')
+                speed_item['start_name'] = i.get('startName')
+                speed_item['end_name'] = i.get('endName')
+                speed_item['dir'] = i.get('dir')
+                speed_item['time'] = pytz.timezone('Asia/Shanghai').localize(
                     datetime.datetime.strptime(i.get('time'), '%Y%m%d%H%M'))
-                item['speed'] = float(i.get('avgSpeed'))
-                item['road_name'] = i.get('name')
-                item['start_name'] = i.get('startName')
-                item['end_name'] = i.get('endName')
-                item['dir'] = i.get('dir')
-                item['b_index'] = float(i.get('bIndex'))
-                item['c_index'] = float(i.get('cIndex'))
-                item['s_index'] = float(i.get('sIndex'))
-                item['kind'] = int(i.get('kind'))
-                item['rtic_lon_lats'] = i.get('rticLonlats')
-                item['vkt'] = i.get('vkt')
-                yield item
+                speed_item['speed'] = float(i.get('avgSpeed'))
+                speed_item['b_index'] = float(i.get('bIndex'))
+                speed_item['c_index'] = float(i.get('cIndex'))
+                speed_item['s_index'] = float(i.get('sIndex'))
+                speed_item['kind'] = int(i.get('kind'))
+                speed_item['rtic_lon_lats'] = i.get('rticLonlats')
+                speed_item['vkt'] = i.get('vkt')
+                yield speed_item
         else:
             self.logger.warning('No Response', response.url)

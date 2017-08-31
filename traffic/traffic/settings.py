@@ -12,6 +12,7 @@
 from base_settings import *
 
 BOT_NAME = 'traffic'
+# LOG_LEVEL = 'DEBUG'
 
 SPIDER_MODULES = ['traffic.spiders']
 NEWSPIDER_MODULE = 'traffic.spiders'

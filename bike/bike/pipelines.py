@@ -49,7 +49,8 @@ class MobikePipeline(BasePipeline):
 
     def process_item(self, item, spider):
         spider.models['bike'].get_or_create(bike_id=item['bike_id'], bike_type=item['bike_type'])
-        check_bike_id_query = spider.models['status'].select().where((spider.models['status'].bike_id == item['bike_id']))
+        check_bike_id_query = spider.models['status'].select().where(
+            (spider.models['status'].bike_id == item['bike_id']))
         if not check_bike_id_query.exists():
             self.insert_item(item, spider)
         else:
