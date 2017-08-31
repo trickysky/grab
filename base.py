@@ -19,7 +19,7 @@ class BasePipeline(object):
         spider.db.close()
 
 
-class BaseCommonRequestMiddleware(object):
+class CommonRequestMiddleware(object):
     def __init__(self):
         pass
 
@@ -36,7 +36,7 @@ class BaseCommonRequestMiddleware(object):
         return
 
 
-class BaseProxyMiddleware(object):
+class ProxyMiddleware(object):
     def __init__(self):
         pass
 

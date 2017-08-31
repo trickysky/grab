@@ -10,6 +10,9 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 
 # LOG_LEVEL = 'INFO'
+
+from base_settings import *
+
 BOT_NAME = 'bike'
 
 SPIDER_MODULES = ['bike.spiders']
@@ -19,7 +22,7 @@ NEWSPIDER_MODULE = 'bike.spiders'
 # USER_AGENT = 'bike (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = False
+# ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 # CONCURRENT_REQUESTS = 32
@@ -46,17 +49,18 @@ ROBOTSTXT_OBEY = False
 
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
-SPIDER_MIDDLEWARES = {
-   'scrapy.spidermiddlewares.httperror.HttpErrorMiddleware': None,
-}
+
+# SPIDER_MIDDLEWARES = {
+#    'scrapy.spidermiddlewares.httperror.HttpErrorMiddleware': None,
+# }
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {
-   'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-   'bike.middlewares.CommonRequestMiddleware': 800,
+# DOWNLOADER_MIDDLEWARES = {
+#    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+#    'bike.middlewares.CommonRequestMiddleware': 800,
    # 'bike.middlewares.ProxyMiddleware': 801,
-}
+# }
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
