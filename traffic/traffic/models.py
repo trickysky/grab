@@ -8,13 +8,12 @@ from base import DEFAULT_DB as db
 
 
 class spider_traffic_siwei_speed(Model):
-    code = CharField(index=True)
+    hash_code = CharField(index=True)
     time = DateTimeField(index=True)
     speed = FloatField()
     b_index = FloatField()
     c_index = FloatField()
     s_index = FloatField()
-    kind = SmallIntegerField()
     rtic_lon_lats = CharField(null=True)
     vkt = CharField(null=True)
 
@@ -23,16 +22,19 @@ class spider_traffic_siwei_speed(Model):
 
 
 class spider_traffic_siwei_road_name(Model):
-    code = CharField(primary_key=True)
+    hash_code = CharField(primary_key=True)
+    code = CharField()
     city = CharField()
     road_name = CharField()
     start_name = CharField()
     end_name = CharField()
     dir = CharField()
+    kind = SmallIntegerField()
 
     class Meta:
         database = db
 
 
 if '__main__' == __name__:
-    spider_traffic_siwei_speed.create()
+    a = spider_traffic_siwei_road_name.get(code='3100000hu2nan2lu4')
+
