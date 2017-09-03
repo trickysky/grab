@@ -19,6 +19,7 @@ class spider_traffic_siwei_speed(Model):
 
     class Meta:
         database = db
+        schema = 'traffic'
 
 
 class spider_traffic_siwei_road_name(Model):
@@ -33,6 +34,7 @@ class spider_traffic_siwei_road_name(Model):
 
     class Meta:
         database = db
+        schema = 'traffic'
 
 
 if '__main__' == __name__:
