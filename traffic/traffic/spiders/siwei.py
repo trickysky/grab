@@ -23,7 +23,7 @@ class SiweiSpider(scrapy.Spider):
 
     def start_requests(self):
         city_list = {
-            # u'北京': '110000',
+            u'北京': '110000',
             # u'天津': '120000',
             # u'石家庄': '130100',
             # u'太原': '140100',
