@@ -8,6 +8,12 @@
 - 交通数据
     - [x] 四维交通数据
 
+### 依赖
+- PostgreSQL
+- Redis
+- `Python` 依赖:
+    > scrapy peewee redis
+
 ### 注意事项
 
 - 开发时, 需要对 project 的 templates 软链接至 Scrapy 的默认 templates 路径
