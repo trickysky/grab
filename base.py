@@ -6,10 +6,14 @@
 import os
 import random
 from peewee import *
+import redis
 
 PG_DB = PostgresqlDatabase('mydb', user='tk', password='tk0306', host='localhost')
+redis_pool = redis.ConnectionPool(host='localhost', port=6379, db=0)
+LOCAL_REDIS = redis.Redis(connection_pool=redis_pool)
 
 DEFAULT_DB = PG_DB
+DEFAULT_REDIS = LOCAL_REDIS
 
 class BasePipeline(object):
     def open_spider(self, spider):
