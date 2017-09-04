@@ -28,6 +28,7 @@ class SiweiPipeline(BasePipeline):
         if r.exists(hash_code):
             if not r.get(hash_code) == str(item['time']):
                 self.insert_item(item, spider, hash_code)
+                r.set(hash_code, item['time'])
         else:
             spider.models['road_name'].get_or_create(
                 hash_code=hash_code,
@@ -39,13 +40,9 @@ class SiweiPipeline(BasePipeline):
                 dir=item['dir'],
                 kind=item['kind']
             )
-            self.insert_item(item, spider, hash_code)
-
-
-        check_query = spider.models['speed'].select().where(
-            (spider.models['speed'].hash_code == hash_code) & (spider.models['speed'].time == item['time']))
-        if not check_query.exists():
-            self.insert_item(item, spider, hash_code)
-        else:
-            pass
+            check_query = spider.models['speed'].select().where(
+                (spider.models['speed'].hash_code == hash_code) & (spider.models['speed'].time == item['time']))
+            if not check_query.exists():
+                self.insert_item(item, spider, hash_code)
+            r.set(hash_code, item['time'])
         return item
