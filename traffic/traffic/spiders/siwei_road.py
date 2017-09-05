@@ -2,24 +2,21 @@
 import scrapy
 from traffic import items
 from traffic.models import *
+import json
 
-import json, pytz, datetime
-
-class SiweiSpider(scrapy.Spider):
-    name = 'siwei'
+class SiweiRoadSpider(scrapy.Spider):
+    name = 'siwei_road'
     db = db
     # allowed_domains = ['siwei.com']
     # start_urls = ['http://siwei.com/']
     models = {
-        'speed': spider_traffic_siwei_speed,
         'road_name': spider_traffic_siwei_road_name
     }
     custom_settings = {
         'ITEM_PIPELINES': {
-            'traffic.pipelines.SiweiPipeline': 999,
+            # 'traffic.pipelines.TrafficPipeline': 999,
         }
     }
-
 
     def start_requests(self):
         city_list = {
@@ -51,36 +48,26 @@ class SiweiSpider(scrapy.Spider):
             # u'重庆': '500000',
             # u'成都': '510100'
         }
-        for city in city_list:
+        road_name_set = {}
+        for i in spider_traffic_siwei_road_name.select():
+            road_name_set.add(i.road_name)
+
+
+
+            city = i.city
             city_code = city_list[city]
+            road_name = i.road_name
             url = 'http://mobile.trafficeye.com.cn:9000/touChuanWebService/TouchuanService_v2'
             formdata = {
                 'cityCode': city_code,
-                'method': '10'
+                'method': '10',
+                'roadName': road_name
             }
             yield scrapy.FormRequest(url=url, formdata=formdata, callback=self.parse_detail, meta={'city': city})
+
 
     def parse_detail(self, response):
         city = response.meta['city']
         if response.body:
             result = json.loads(response.body)
-            for i in result:
-                speed_item = items.SiweiSpeedItem()
-                speed_item['code'] = i.get('code')
-                speed_item['city'] = city
-                speed_item['road_name'] = i.get('name')
-                speed_item['start_name'] = i.get('startName')
-                speed_item['end_name'] = i.get('endName')
-                speed_item['dir'] = i.get('dir')
-                speed_item['time'] = pytz.timezone('Asia/Shanghai').localize(
-                    datetime.datetime.strptime(i.get('time'), '%Y%m%d%H%M'))
-                speed_item['speed'] = float(i.get('avgSpeed'))
-                speed_item['b_index'] = float(i.get('bIndex'))
-                speed_item['c_index'] = float(i.get('cIndex'))
-                speed_item['s_index'] = float(i.get('sIndex'))
-                speed_item['kind'] = int(i.get('kind'))
-                speed_item['rtic_lon_lats'] = i.get('rticLonlats')
-                speed_item['vkt'] = i.get('vkt')
-                yield speed_item
-        else:
-            self.logger.warning('No Response', response.url)
+

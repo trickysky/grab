@@ -14,8 +14,6 @@ class spider_traffic_siwei_speed(Model):
     b_index = FloatField()
     c_index = FloatField()
     s_index = FloatField()
-    rtic_lon_lats = CharField(null=True)
-    vkt = CharField(null=True)
 
     class Meta:
         database = db
@@ -31,6 +29,7 @@ class spider_traffic_siwei_road_name(Model):
     end_name = CharField()
     dir = CharField()
     kind = SmallIntegerField()
+    rtic_lon_lats = CharField(null=True)
 
     class Meta:
         database = db
@@ -38,5 +37,6 @@ class spider_traffic_siwei_road_name(Model):
 
 
 if '__main__' == __name__:
-    a = spider_traffic_siwei_road_name.get(code='3100000hu2nan2lu4')
+    for i in spider_traffic_siwei_road_name.select():
+        print i.city, i.road_name
 

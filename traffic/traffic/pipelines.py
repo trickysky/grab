@@ -46,3 +46,12 @@ class SiweiPipeline(BasePipeline):
                 self.insert_item(item, spider, hash_code)
             r.set(hash_code, item['time'])
         return item
+
+
+class SiweiRoadPipeline(BasePipeline):
+    def process_item(self, item, spider):
+        hash_code = hash(
+            item['code'] + item['city'] + item['road_name'] + item['start_name'] + item['end_name'] + item['dir'] +
+            str(item['kind']))
+        rtic_lon_lats = item['rtic_lon_lats']
+        spider.models['road_name'].update(rtic_lon_lats=rtic_lon_lats).where(hash_code=hash_code)
