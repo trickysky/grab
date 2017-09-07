@@ -5,18 +5,22 @@
 
 from peewee import *
 from base import DEFAULT_DB as db
+import datetime
 
 
 class spide_app_baidu(Model):
     app_id = CharField(primary_key=True)
-    keyword = CharField()
+    type = CharField()
+    subtype = CharField()
+    # keyword = CharField()
     name = CharField()
     score = CharField(null=True)
-    type = CharField(null=True)
+    tag = CharField(null=True)
     size = CharField(null=True)
     version = CharField(null=True)
     download_num = CharField(null=True)
     description = TextField(null=True)
+    # update = DateTimeField()
 
     class Meta:
         database = db
@@ -24,4 +28,6 @@ class spide_app_baidu(Model):
 
 
 if '__main__' == __name__:
-    pass
+    row = spide_app_baidu.select().where(spide_app_baidu.app_id=='22113516').get()
+    row.score = '79'
+    row.save()

@@ -10,10 +10,12 @@ import scrapy
 
 class BaiduAppItem(scrapy.Item):
     app_id = scrapy.Field()
-    keyword  = scrapy.Field()
+    # keyword  = scrapy.Field()
+    type = scrapy.Field()
+    subtype = scrapy.Field()
     name = scrapy.Field()
     score = scrapy.Field()
-    type = scrapy.Field()
+    tag = scrapy.Field()
     size = scrapy.Field()
     version = scrapy.Field()
     download_num = scrapy.Field()

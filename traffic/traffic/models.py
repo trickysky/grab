@@ -37,4 +37,6 @@ class spider_traffic_siwei_road_name(Model):
 
 
 if '__main__' == __name__:
-    a = spider_traffic_siwei_road_name.get(hash_code='1987498942459382380').road_name
+    a = spider_traffic_siwei_road_name.select()
+    for i in a:
+        print a.road_name
