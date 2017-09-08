@@ -17,8 +17,6 @@ class SiweiPipeline(BasePipeline):
             b_index=item['b_index'],
             c_index=item['c_index'],
             s_index=item['s_index'],
-            rtic_lon_lats=item['rtic_lon_lats'],
-            vkt=item['vkt']
         )
 
     def process_item(self, item, spider):
@@ -53,5 +51,6 @@ class SiweiRoadPipeline(BasePipeline):
         hash_code = hash(
             item['code'] + item['city'] + item['road_name'] + item['start_name'] + item['end_name'] + item['dir'] +
             str(item['kind']))
-        rtic_lon_lats = item['rtic_lon_lats']
-        spider.models['road_name'].update(rtic_lon_lats=rtic_lon_lats).where(hash_code=hash_code)
+        spider.models['road_name'].update(geom_str=item['geom_str']).where(
+            spider.models['road_name'].hash_code == hash_code).execute()
+        return item

@@ -79,8 +79,6 @@ class SiweiSpider(scrapy.Spider):
                 speed_item['c_index'] = float(i.get('cIndex'))
                 speed_item['s_index'] = float(i.get('sIndex'))
                 speed_item['kind'] = int(i.get('kind'))
-                speed_item['rtic_lon_lats'] = i.get('rticLonlats')
-                speed_item['vkt'] = i.get('vkt')
                 yield speed_item
         else:
             self.logger.warning('No Response', response.url)

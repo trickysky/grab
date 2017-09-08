@@ -14,7 +14,7 @@ class SiweiRoadSpider(scrapy.Spider):
     }
     custom_settings = {
         'ITEM_PIPELINES': {
-            # 'traffic.pipelines.TrafficPipeline': 999,
+            'traffic.pipelines.SiweiRoadPipeline': 999,
         }
     }
 
@@ -48,26 +48,33 @@ class SiweiRoadSpider(scrapy.Spider):
             # u'重庆': '500000',
             # u'成都': '510100'
         }
-        road_name_set = {}
+        road_name_list = []
         for i in spider_traffic_siwei_road_name.select():
-            road_name_set.add(i.road_name)
-
-
-
-            city = i.city
-            city_code = city_list[city]
             road_name = i.road_name
-            url = 'http://mobile.trafficeye.com.cn:9000/touChuanWebService/TouchuanService_v2'
-            formdata = {
-                'cityCode': city_code,
-                'method': '10',
-                'roadName': road_name
-            }
-            yield scrapy.FormRequest(url=url, formdata=formdata, callback=self.parse_detail, meta={'city': city})
-
+            city = i.city
+            if not {'road_name': road_name, 'city': city} in road_name_list:
+                road_name_list.append({'road_name': road_name, 'city': city})
+                city_code = city_list[i.city]
+                url = 'http://mobile.trafficeye.com.cn:9000/touChuanWebService/TouchuanService_v2'
+                formdata = {
+                    'cityCode': city_code,
+                    'method': '10',
+                    'roadName': road_name
+                }
+                yield scrapy.FormRequest(url=url, formdata=formdata, callback=self.parse_detail, meta={'city': city})
 
     def parse_detail(self, response):
         city = response.meta['city']
         if response.body:
             result = json.loads(response.body)
-
+            for i in result:
+                item = items.SiweiRoadItem()
+                item['code'] = i.get('code')
+                item['city'] = city
+                item['road_name'] = i.get('name')
+                item['start_name'] = i.get('startName')
+                item['end_name'] = i.get('endName')
+                item['dir'] = i.get('dir')
+                item['kind'] = i.get('kind')
+                item['geom_str'] = i.get('rticLonlats').replace(u'\r', u'')
+                yield item

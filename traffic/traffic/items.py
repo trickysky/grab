@@ -21,5 +21,14 @@ class SiweiSpeedItem(scrapy.Item):
     c_index = scrapy.Field()
     s_index = scrapy.Field()
     kind = scrapy.Field()
-    rtic_lon_lats = scrapy.Field()
-    vkt = scrapy.Field()
+
+
+class SiweiRoadItem(scrapy.Item):
+    city = scrapy.Field()
+    code = scrapy.Field()
+    road_name = scrapy.Field()
+    start_name = scrapy.Field()
+    end_name = scrapy.Field()
+    dir = scrapy.Field()
+    kind = scrapy.Field()
+    geom_str = scrapy.Field()

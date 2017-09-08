@@ -29,7 +29,7 @@ class spider_traffic_siwei_road_name(Model):
     end_name = CharField()
     dir = CharField()
     kind = SmallIntegerField()
-    rtic_lon_lats = CharField(null=True)
+    geom_str = TextField(null=True)
 
     class Meta:
         database = db
