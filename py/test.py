@@ -3,12 +3,15 @@
 # trickysky
 # 2017/5/9
 
-import redis
-import pytz, datetime
+str1 = 'a1 b1 a2 b2 a3 b3 a4 b4'
+str2 = 'a1 b1,a2 b2,a3 b3,a4 b4'
+tmp_list = []
+tmp_str =''
+for i, point in enumerate(str1.split()):
+    if not i % 2:
+        tmp_str = point
+    else:
+        tmp_str += ' %s' % point
+        tmp_list.append(tmp_str)
+print ','.join(tmp_list)
 
-pool = redis.ConnectionPool(host='localhost', port=6379, db=0)
-r = redis.Redis(connection_pool=pool)
-t = pytz.timezone('Asia/Shanghai').localize(datetime.datetime.strptime('201709032240', '%Y%m%d%H%M'))
-b = r.get('a')
-resule = str(t) == b
-print
