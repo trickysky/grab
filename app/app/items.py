@@ -20,3 +20,5 @@ class BaiduAppItem(scrapy.Item):
     version = scrapy.Field()
     download_num = scrapy.Field()
     description = scrapy.Field()
+    package = scrapy.Field()
+    download_link = scrapy.Field()

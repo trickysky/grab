@@ -9,10 +9,9 @@ import datetime
 
 
 class spide_app_baidu(Model):
-    app_id = CharField(primary_key=True)
+    app_id = CharField()
     type = CharField()
     subtype = CharField()
-    # keyword = CharField()
     name = CharField()
     score = CharField(null=True)
     tag = CharField(null=True)
@@ -20,7 +19,9 @@ class spide_app_baidu(Model):
     version = CharField(null=True)
     download_num = CharField(null=True)
     description = TextField(null=True)
-    # update = DateTimeField()
+    package = CharField(null=True)
+    download_link = TextField(null=True)
+    create_time = DateTimeField()
 
     class Meta:
         database = db

@@ -25,7 +25,17 @@ class BaiduKeyWordSpider(scrapy.Spider):
 
     def start_requests(self):
         keyword_list = {
-            u'手术',
+            u'贷款',
+            u'现金',
+            u'借钱',
+            u'小贷',
+            u'信用',
+            u'分期',
+            u'放款',
+            u'商城',
+            u'钱包',
+            u'支付',
+            u'还款',
         }
         for keyword in keyword_list:
             url = 'http://shouji.baidu.com/s?wd=%s&data_type=app&from=web_alad_5' % quote(keyword.encode('utf-8'))
@@ -48,7 +58,7 @@ class BaiduKeyWordSpider(scrapy.Spider):
                                               dont_filter=True)
 
     def parse_detail(self, response):
-        keyword = response.meta['keyword']
+        # keyword = response.meta['keyword']
         page = response.meta['page']
         item = items.BaiduAppItem()
         # item['keyword'] = response.meta['keyword']
@@ -68,5 +78,9 @@ class BaiduKeyWordSpider(scrapy.Spider):
             response.xpath('//div[@class="yui3-g"]//div[@class="detail"]/span[@class="download-num"]/text()').re(
                 ': (\S+)$'))
         item['description'] = "".join(response.xpath('//div[@class="brief-long"]/p/text()').re('\S+'))
-        # print keyword, page, item['name'], item['app_id']
+        item['package'] = "".join(response.xpath(
+            '//div[@class="yui3-g"]//div[@class="area-one-setup"]/span[@class="one-setup-btn"]/@data_package').re(
+            '\S+'))
+        item['download_link'] = "".join(response.xpath(
+            '//div[@class="yui3-g"]//div[@class="area-one-setup"]/span[@class="one-setup-btn"]/@data_url').re('\S+'))
         yield item

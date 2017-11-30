@@ -42,7 +42,6 @@ class BaiduSpider(CrawlSpider):
 
     def parse_detail(self, response):
         item = items.BaiduAppItem()
-        # item['keyword'] = response.meta['keyword']
         item['type'] = "".join(response.xpath('//div[@class="app-nav"]/div[@class="nav"]/span[3]/a/text()').re('\S+'))
         item['subtype'] = "".join(response.xpath('//div[@class="app-nav"]/div[@class="nav"]/span[5]/a/text()').re('\S+'))
         item['app_id'] = "".join(re.findall('/(\d+).html$', response.url))
@@ -58,5 +57,6 @@ class BaiduSpider(CrawlSpider):
             response.xpath('//div[@class="yui3-g"]//div[@class="detail"]/span[@class="download-num"]/text()').re(
                 ': (\S+)$'))
         item['description'] = "".join(response.xpath('//div[@class="brief-long"]/p/text()').re('\S+'))
-        # print item['name'], response.url
+        item['package'] = "".join(response.xpath('//div[@class="yui3-g"]//div[@class="area-one-setup"]/span[@class="one-setup-btn"]/@data_package').re('\S+'))
+        item['download_link'] = "".join(response.xpath('//div[@class="yui3-g"]//div[@class="area-one-setup"]/span[@class="one-setup-btn"]/@data_url').re('\S+'))
         yield item

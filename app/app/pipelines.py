@@ -18,8 +18,8 @@ class BaiduAppPipeline(BasePipeline):
         # #         new_keyword = '%s,%s' % (keyword, item['keyword'])
         # #         model_baidu.update(keyword=new_keyword).where(model_baidu.app_id == item['app_id']).execute()
         # else:
-        r_key = 'app_%s' % item['app_id']
-        if not r.exists(r_key):
+        r_key = 'app_baidu_%s' % item['app_id']
+        if not r.exists(r_key) or not r.get(r_key) == item['version']:
             model_baidu.insert(
                 app_id=item['app_id'],
                 # keyword=item['keyword'],
@@ -32,20 +32,10 @@ class BaiduAppPipeline(BasePipeline):
                 version=item['version'],
                 download_num=item['download_num'],
                 description=item['description'],
+                package=item['package'],
+                download_link=item['download_link'],
+                create_time=datetime.datetime.now()
             ).execute()
             print 'insert %s %s' % (item['app_id'], item['name'])
-        else:
-            model_baidu.update(
-                type=item['type'],
-                subtype=item['subtype'],
-                name=item['name'],
-                score=item['score'],
-                tag=item['tag'],
-                size=item['size'],
-                version=item['version'],
-                download_num=item['download_num'],
-                description=item['description'],
-            ).where(model_baidu.app_id  == item['app_id']).execute()
-            print 'update %s %s' % (item['app_id'], item['name'])
-        r.set(r_key, '')
+        r.set(r_key, item['version'])
         return item
